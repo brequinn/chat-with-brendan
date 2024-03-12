@@ -58,7 +58,7 @@ function promptDataReducer(
   return [...current]
 }
 
-const supabaseUrl = 'https://hjrqutqbqfmkhathadmg.supabase.co'
+const supabaseUrl = 'https://yunwshtdhisikfbaaoeu.supabase.co'
 const supabaseAnonKey =
   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhqcnF1dHFicWZta2hhdGhhZG1nIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODY3ODg0MzMsImV4cCI6MjAwMjM2NDQzM30.P8S-5e8KPZCaviQpRwNZJX-mdwvt46cckSsr-DnVP8I'
 const supabase = createClient(supabaseUrl, supabaseAnonKey)

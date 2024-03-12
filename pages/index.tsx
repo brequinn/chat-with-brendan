@@ -13,9 +13,9 @@ import type { MenuProps } from 'antd'
 import { Dropdown, Space, Input } from 'antd'
 import { stringify } from 'querystring'
 
-const supabaseUrl = 'https://hjrqutqbqfmkhathadmg.supabase.co'
+const supabaseUrl = 'https://yunwshtdhisikfbaaoeu.supabase.co'
 const supabaseAnonKey =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhqcnF1dHFicWZta2hhdGhhZG1nIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODY3ODg0MzMsImV4cCI6MjAwMjM2NDQzM30.P8S-5e8KPZCaviQpRwNZJX-mdwvt46cckSsr-DnVP8I'
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl1bndzaHRkaGlzaWtmYmFhb2V1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTAxMTI0NTcsImV4cCI6MjAyNTY4ODQ1N30.-w9Fzj26j9RjQZztidot0iwKESGStAQLJrjAyLpU4pk'
 const supabase = createClient(supabaseUrl, supabaseAnonKey)
 
 export default function Home() {
@@ -80,8 +80,6 @@ export default function Home() {
 
     setGuides(guides)
     setIsLoadingGuides(false)
-
-    // ... other useEffect code
   }, [])
 
   return (
