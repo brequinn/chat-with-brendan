@@ -6,7 +6,7 @@ import OpenAI from 'openai'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { ApplicationError, UserError } from '@/lib/errors'
 
-const openAiKey = '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'
+const openAiKey = ''
 // process.env.OPENAI_KEY
 const supabaseUrl = 'https://hjrqutqbqfmkhathadmg.supabase.co'
 process.env.NEXT_PUBLIC_SUPABASE_URL
