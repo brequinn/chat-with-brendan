@@ -7,8 +7,8 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import { ApplicationError, UserError } from '@/lib/errors'
 
 const ClaudeKey =
-  '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'
-const openAiKey = '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'
+  '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'
+const openAiKey = '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'
 // process.env.OPENAI_KEY
 const supabaseUrl = 'https://hjrqutqbqfmkhathadmg.supabase.co'
 process.env.NEXT_PUBLIC_SUPABASE_URL

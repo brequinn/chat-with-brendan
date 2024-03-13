@@ -7,7 +7,7 @@ export default async function handler(req, res) {
 
     // Create an instance of the OpenAI client directly with the API key
     const openai = new OpenAI({
-      apiKey: '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',
+      apiKey: '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',
     })
 
     try {

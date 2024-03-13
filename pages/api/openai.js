@@ -3,9 +3,9 @@ import OpenAI from 'openai'
 import { createClient } from '@supabase/supabase-js'
 
 const supabaseUrl = 'https://yunwshtdhisikfbaaoeu.supabase.co'
-const openAiKey = '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'
+const openAiKey = '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'
 const ClaudeKey =
-  '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'
+  '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'
 const supabaseServiceKey =
   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl1bndzaHRkaGlzaWtmYmFhb2V1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTAxMTI0NTcsImV4cCI6MjAyNTY4ODQ1N30.-w9Fzj26j9RjQZztidot0iwKESGStAQLJrjAyLpU4pk'
 
