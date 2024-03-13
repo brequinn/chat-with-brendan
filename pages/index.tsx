@@ -109,7 +109,7 @@ export default function Home() {
             <div className="text-base md:text-lg pt-4 mb-4 text-zinc-500">
               <h3 className="text-3xl font-semibold text-black mt-12 mb-8">
                 Hi! My name is Brendan. This is my personal chatbot trained on my resume and
-                knowledge. Ask me anything!
+                knowledge. Ask me anything!!
               </h3>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full">
