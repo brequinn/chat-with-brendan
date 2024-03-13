@@ -389,7 +389,7 @@ async function generateEmbeddings() {
         throw fetchParentPageError
       }
 
-      // Create/update page record. Intentionally clear checksum until we
+      // Create/update page record. Intentionally clear checksum until we yes this is a test
       // have successfully generated all page sections.
       const { error: upsertPageError, data: page } = await supabaseClient
         .from('nods_page')
