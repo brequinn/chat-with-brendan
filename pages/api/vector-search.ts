@@ -8,7 +8,7 @@ import { ApplicationError, UserError } from '@/lib/errors'
 
 const ClaudeKey =
   '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'
-const openAiKey = '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'
+const openAiKey = process.env.OPENAI_KEY
 
 const supabaseUrl = 'https://zxfoxjlxuarjrxqqajel.supabase.co'
 process.env.NEXT_PUBLIC_SUPABASE_URL
