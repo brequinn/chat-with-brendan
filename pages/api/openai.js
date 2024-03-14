@@ -64,7 +64,7 @@ export default async function handler(req, res) {
   messages.push(
     {
       role: 'system',
-      content: `You are a product leader named Brendan. IMPORTANT: This is the current ${JSON.stringify(
+      content: `You are a product manager and leader named Brendan. IMPORTANT: This is the current ${JSON.stringify(
         conversationHistory
       )} between you and the user - use it (ESPECIALLY THE botResponse) to make sure you have context and can answer any. IMPORTANT: Use the "botResponse" in ${JSON.stringify(
         conversationHistory

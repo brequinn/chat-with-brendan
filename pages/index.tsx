@@ -74,7 +74,7 @@ export default function Home() {
         specialties: 'Bars, Cantinas, Tequila, Mezcal, 🌮 Tacos, Dancing, Museums, Markets, Parks',
         image: '/images/paseana-cover.png',
         social: 'https://www.instagram.com/foodhoodtours/',
-        page_id: 64,
+        page_id: 3,
       },
     ]
 
