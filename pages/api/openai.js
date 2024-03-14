@@ -1,16 +1,17 @@
 // /pages/api/openai.js
 import OpenAI from 'openai'
 import { createClient } from '@supabase/supabase-js'
-
-const supabaseUrl = 'https://yunwshtdhisikfbaaoeu.supabase.co'
+import Anthropic from '@anthropic-ai/sdk'
+const supabaseUrl = 'https://zxfoxjlxuarjrxqqajel.supabase.co'
 const openAiKey = process.env.OPENAI_KEY
 const ClaudeKey =
   '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'
 const supabaseServiceKey =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl1bndzaHRkaGlzaWtmYmFhb2V1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTAxMTI0NTcsImV4cCI6MjAyNTY4ODQ1N30.-w9Fzj26j9RjQZztidot0iwKESGStAQLJrjAyLpU4pk'
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inp4Zm94amx4dWFyanJ4cXFhamVsIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTcxMDM3ODU4NywiZXhwIjoyMDI1OTU0NTg3fQ._qACYspsirP2uR2LKdgixaKYlWqXONtkz4IDPdeQ6N4'
 
 // Initialize Supabase client with the service key
 const supabase = createClient(supabaseUrl, supabaseServiceKey)
+const anthropic = new Anthropic()
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -63,34 +64,16 @@ export default async function handler(req, res) {
   messages.push(
     {
       role: 'system',
-      content: `You are a Mexico City local and travel guide named ${guideName}. IMPORTANT: This is the current ${JSON.stringify(
+      content: `You are a product leader named Brendan. IMPORTANT: This is the current ${JSON.stringify(
         conversationHistory
-      )} between you and your traveler - use it (ESPECIALLY THE botResponse) to make sure you have context and can answer any. IMPORTANT: Use the "botResponse" in ${JSON.stringify(
+      )} between you and the user - use it (ESPECIALLY THE botResponse) to make sure you have context and can answer any. IMPORTANT: Use the "botResponse" in ${JSON.stringify(
         conversationHistory
       )} to answer any follow up questions correctly.
-       You are very enthusiastic and love to help people have great travel experiences. 
-    in Mexico City! All of your knowledge and recommendations are located here: ${context}. IMPORTANT! Only take info and tips from ${context}. DO NOT PROVIDE SUGGESTIONS IF it is not in the context or conversation history. 
-    Keep your answers short and concise, but remember to always answer the question if you can.
-    If you do not know something, do not make things up, you then must state that you are unsure and you will work on finding that out for you. Also say Sorry, 
-     I do not know how to help with that. Try asking in a different way or anything related to Mexico City. 
-     IMPORTANT: If you recommend one place and there is a google maps link under "Directions" for that location, provide the link. Example: If you see "Directions: https://maps.app.goo.gl/7WnwH1evXuc7FpN78" in your ${context} at the end of recommending that place say "Here are directions: https://maps.app.goo.gl/7WnwH1evXuc7FpN78". DO NOT add brackets of any kind and do not give responses like "[Here are directions: https://maps.app.goo.gl/7WnwH1evXuc7FpN78]"
-     IMPORTANT: When you receive your ${context} make sure to look for any suggestions that have a "[]" at the end of them. This keeps your recommendations focused. If i ask about good dancing spots, only give me places that have "[dancing]" at the end of them.
-     IMPORTANT: Feel free to tell them your name. Your name is ${guideName}
-     IMPORTANT: Dont include "[]" in your answers or "#" or "##" in your answers
-     IMPORTANT: If your ${context} includes a recommendation on time of day, example "i recommend going during the day", be sure to say that
-     IMPORTANT: DO NOT SAY "[Would you like directions to X?]". Just add the link if there is one 
-     IMPORTANT: Do not say "Would you like me to look that up for you?" because you can't do that. Just say "do you have any question about Mexico City?"
-     IMPORTANT: You are also an Airbnb experience host, if you see a link or mention of an Airbnb experience, include the link in your response
-     IMPORTANT: You can provide external links and addresses for places, if you dont have it just say you don't have it but you can do this. 
-     IMPORTANT: Do not provide open hours or info about certain places unless its in ${context}. Do not do this just say you dont know
-     IMPORTANT: You are a travel guide so if you get a question in English, answer in English. Answer the question in the language in which the traveler asked you.
-     IMPORTANT: If you get a question that is not related to Mexico City, say that you cant answer that and apologize and say that you can only answer 
-     questions related to Mexico City because you are a travel expert on it.
-     IMPORTANT TO REMEMBER! If a traveler asks you about coffee, just give them coffee suggestions, not taco suggestions. Keep it focused on what was asked.
-     IMPORTANT: If i ask you for taco recommendations, then ask you for another recommendation not related to tacos, use what you have in your context. DO NOT give suggestions outside of your context or conversation history
-     IMPORTANT: Do not say you are ChatGPT, you are Gaby and you are here to help with Mexico City travel tips
-     IMPORTANT: DO not include "##" when providing a recommendation just remove the ##
-     IMPORTANT: If a traveler says something like "what's another good cocktail bar" or "Whats another good X", provide another recommendation from your context`,
+       
+   All of your knowledge about your career is located here: ${context}. IMPORTANT! Only take info and tips from ${context}. Do not answer other questions outside of your career or resume
+    
+    
+    `,
     },
     {
       role: 'user',
@@ -99,16 +82,20 @@ export default async function handler(req, res) {
   )
 
   try {
-    const openaiResponse = await new OpenAI({ apiKey: openAiKey }).chat.completions.create({
-      model: 'gpt-3.5-turbo-0125',
+    const anthropicResponse = await anthropic.messages.create({
+      model: 'claude-2.1',
       messages: messages,
-      max_tokens: 320,
+      max_tokens: 1024,
     })
 
-    // 'gpt-3.5-turbo-16k',
-    const botResponseText = openaiResponse.choices[0].message.content
-    console.log('Raw OpenAI response:', openaiResponse)
-    res.status(200).json(openaiResponse)
+    console.log('Anthropic response:', anthropicResponse)
+
+    // Extract the bot response text from anthropicResponse and handle it as needed
+    const botResponseText = anthropicResponse.content[0].text
+
+    // Send botResponseText to client or save it to database
+
+    // Insert conversation history into Supabase
     const { error } = await supabase.from('conversationhistory').insert([
       {
         sessionId: sessionID,
@@ -117,12 +104,20 @@ export default async function handler(req, res) {
         guideName: guideName,
         contextResponse: context,
         userMessage: query,
-        botResponse: botResponseText, // Make sure this matches the structure of your DB column
+        botResponse: botResponseText,
         created_at: new Date().toISOString(),
       },
     ])
+
+    if (error) {
+      console.error('Error inserting conversation history into Supabase:', error)
+      return res.status(500).json({ message: 'Internal Server Error' })
+    }
+
+    // Return the anthropicResponse to client
+    res.status(200).json(anthropicResponse)
   } catch (error) {
-    console.error('OpenAI API error:', error)
+    console.error('Anthropic API error:', error)
     res.status(500).json({ message: 'Internal Server Error' })
   }
 }

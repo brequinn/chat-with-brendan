@@ -8,12 +8,12 @@ import { ApplicationError, UserError } from '@/lib/errors'
 
 const ClaudeKey =
   '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'
-const openAiKey = process.env.OPENAI_KEY
+const openAiKey = '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'
 
-const supabaseUrl = 'https://hjrqutqbqfmkhathadmg.supabase.co'
+const supabaseUrl = 'https://zxfoxjlxuarjrxqqajel.supabase.co'
 process.env.NEXT_PUBLIC_SUPABASE_URL
 const supabaseServiceKey =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl1bndzaHRkaGlzaWtmYmFhb2V1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTAxMTI0NTcsImV4cCI6MjAyNTY4ODQ1N30.-w9Fzj26j9RjQZztidot0iwKESGStAQLJrjAyLpU4pk'
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inp4Zm94amx4dWFyanJ4cXFhamVsIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTcxMDM3ODU4NywiZXhwIjoyMDI1OTU0NTg3fQ._qACYspsirP2uR2LKdgixaKYlWqXONtkz4IDPdeQ6N4'
 process.env.SUPABASE_SERVICE_ROLE_KEY
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -100,7 +100,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       'match_page_sections1',
       {
         // Adjust the parameters according to what `match_page_sections` actually needs
-        input_page_id: pageId,
+
         embedding: embedding,
         match_threshold: 0.78,
         match_count: 10,

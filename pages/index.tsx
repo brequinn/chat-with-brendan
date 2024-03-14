@@ -13,7 +13,7 @@ import type { MenuProps } from 'antd'
 import { Dropdown, Space, Input } from 'antd'
 import { stringify } from 'querystring'
 
-const supabaseUrl = 'https://yunwshtdhisikfbaaoeu.supabase.co'
+const supabaseUrl = 'https://zxfoxjlxuarjrxqqajel.supabase.co'
 const supabaseAnonKey =
   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl1bndzaHRkaGlzaWtmYmFhb2V1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTAxMTI0NTcsImV4cCI6MjAyNTY4ODQ1N30.-w9Fzj26j9RjQZztidot0iwKESGStAQLJrjAyLpU4pk'
 const supabase = createClient(supabaseUrl, supabaseAnonKey)
@@ -144,6 +144,10 @@ export default function Home() {
           </div>
           <div className="text-center relative inline-block"></div>
         </div>
+        <footer className="w-full text-center py-4   absolute bottom-0">
+          Made with{' '}
+          <img src="/assets/anthropic-logo.png" alt="logo" style={{ height: '50', width: '30' }} />
+        </footer>
       </main>
     </>
   )
