@@ -6,10 +6,8 @@ import OpenAI from 'openai'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { ApplicationError, UserError } from '@/lib/errors'
 
-const ClaudeKey =
-  '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'
-const openAiKey = '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'
-process.env.OPENAI_KEY
+const ClaudeKey = process.env.AnthropicKey
+const openAiKey = process.env.OPENAI_KEY
 
 const supabaseUrl = 'https://zxfoxjlxuarjrxqqajel.supabase.co'
 process.env.NEXT_PUBLIC_SUPABASE_URL
