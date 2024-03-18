@@ -6,14 +6,12 @@ import OpenAI from 'openai'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { ApplicationError, UserError } from '@/lib/errors'
 
-const ClaudeKey = process.env.AnthropicKey
+const AnthropicKey = process.env.AnthropicKey
 const openAiKey = process.env.OPENAI_KEY
 
 const supabaseUrl = 'https://zxfoxjlxuarjrxqqajel.supabase.co'
-process.env.NEXT_PUBLIC_SUPABASE_URL
-const supabaseServiceKey =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inp4Zm94amx4dWFyanJ4cXFhamVsIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTcxMDM3ODU4NywiZXhwIjoyMDI1OTU0NTg3fQ._qACYspsirP2uR2LKdgixaKYlWqXONtkz4IDPdeQ6N4'
-process.env.SUPABASE_SERVICE_ROLE_KEY
+// process.env.NEXT_PUBLIC_SUPABASE_URL
+const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   console.log('Handler started for /api/vector-search')

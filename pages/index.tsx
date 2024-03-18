@@ -12,7 +12,9 @@ import { DownOutlined, SmileOutlined, SearchOutlined } from '@ant-design/icons'
 import type { MenuProps } from 'antd'
 import { Dropdown, Space, Input } from 'antd'
 import { stringify } from 'querystring'
+import Anthropic from '@anthropic-ai/sdk'
 
+const AnthropicKey = process.env.AnthropicKey
 const supabaseUrl = 'https://zxfoxjlxuarjrxqqajel.supabase.co'
 const supabaseAnonKey =
   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl1bndzaHRkaGlzaWtmYmFhb2V1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTAxMTI0NTcsImV4cCI6MjAyNTY4ODQ1N30.-w9Fzj26j9RjQZztidot0iwKESGStAQLJrjAyLpU4pk'
