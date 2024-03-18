@@ -196,12 +196,12 @@ export function SearchDialog({ guideName, guideAvatar, pageId }: SearchDialogPro
   const handleConfirm = React.useCallback(
     async (query: string) => {
       console.log('Starting handleConfirm with query:', query) // Log the query
-      setAnswer(undefined)
-      setQuestion(query)
-      setSearch('')
-      dispatchPromptData({ index: promptIndex, answer: undefined, query })
-      setHasError(false)
-      setIsLoading(true)
+      setAnswer(undefined) // Reset the previous answer
+      setQuestion(query) // Set the new question
+      setSearch('') // Clear the search input
+      dispatchPromptData({ index: promptIndex, answer: undefined, query }) // Update prompt data reducer
+      setHasError(false) // Reset error state
+      setIsLoading(true) // Indicate loading state
 
       // Retrieve the guide-specific session ID
       const sessionKey = `sessionID-${guideName}` // Construct the key with the guide's name
@@ -235,37 +235,31 @@ export function SearchDialog({ guideName, guideAvatar, pageId }: SearchDialogPro
           throw new Error('Failed to fetch from vector search')
         }
 
-        const textResponse = await response.text()
-        console.log('Raw response body:', textResponse)
+        const data = await response.json() // Assuming the API returns JSON
+        console.log('Parsed data:', data)
 
-        if (!textResponse) {
-          console.error('Response body is empty')
-          setHasError(true)
-          setIsLoading(false)
-          return
-        }
-
-        try {
-          const data = JSON.parse(textResponse)
-          console.log('Parsed data:', data)
-
-          // Extract the assistant's response from the chat completion data
-          const assistantResponse = data.choices[0].message.content
-          setAnswer(assistantResponse) // Set the assistant's response as the answer
-        } catch (parseError) {
-          console.error('Error parsing JSON:', parseError)
-          setHasError(true)
-        }
+        // Assuming the structure of your API response and extracting the relevant text
+        const assistantResponse = data.content[0].text // Adjust this path based on your actual API response structure
+        setAnswer(assistantResponse) // Set the assistant's response as the answer
       } catch (err) {
-        console.error('Error during vector search:', err)
+        console.error('Error during fetch operation:', err)
         setHasError(true)
       } finally {
-        setIsLoading(false)
+        setIsLoading(false) // Reset loading state
       }
 
-      setPromptIndex((x) => x + 1)
+      setPromptIndex((x) => x + 1) // Increment prompt index for the next interaction
     },
-    [promptIndex, user?.email, user?.id, guideName] // Add guideName to the dependency array
+    [
+      promptIndex,
+      user?.email,
+      user?.id,
+      guideName,
+      setAnswer,
+      setHasError,
+      setIsLoading,
+      setQuestion,
+    ] // Update dependencies
   )
 
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {

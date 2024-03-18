@@ -1,17 +1,16 @@
 // /pages/api/openai.js
-import OpenAI from 'openai'
 import { createClient } from '@supabase/supabase-js'
 import Anthropic from '@anthropic-ai/sdk'
+
 const supabaseUrl = 'https://zxfoxjlxuarjrxqqajel.supabase.co'
-const openAiKey = process.env.OPENAI_KEY
-const ClaudeKey =
-  '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'
+const AnthropicKey = process.env.AnthropicKey
 const supabaseServiceKey =
   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inp4Zm94amx4dWFyanJ4cXFhamVsIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTcxMDM3ODU4NywiZXhwIjoyMDI1OTU0NTg3fQ._qACYspsirP2uR2LKdgixaKYlWqXONtkz4IDPdeQ6N4'
 
 // Initialize Supabase client with the service key
 const supabase = createClient(supabaseUrl, supabaseServiceKey)
-const anthropic = new Anthropic()
+// Initialize Anthropic client with the API key
+const anthropic = new Anthropic({ apiKey: AnthropicKey })
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -54,37 +53,30 @@ export default async function handler(req, res) {
   }
 
   const messages = conversationHistory.map((entry) => ({
-    role: 'system', // Assuming all entries are from the system for simplicity; adjust as necessary
+    role: 'user', // Assuming all entries are from the user
     content: entry.userMessage,
   }))
 
   console.log('THIS IS THE CONVERSATION HISTORY!! MAIN MAIN' + JSON.stringify(conversationHistory))
-  // console.log('this is BOT RESPONSE' + { botResponse })
 
-  messages.push(
-    {
-      role: 'system',
-      content: `You are a product manager and leader named Brendan. IMPORTANT: This is the current ${JSON.stringify(
-        conversationHistory
-      )} between you and the user - use it (ESPECIALLY THE botResponse) to make sure you have context and can answer any. IMPORTANT: Use the "botResponse" in ${JSON.stringify(
-        conversationHistory
-      )} to answer any follow up questions correctly.
-       
-   All of your knowledge about your career is located here: ${context}. IMPORTANT! Only take info and tips from ${context}. Do not answer other questions outside of your career or resume
-    
-    
-    `,
-    },
-    {
-      role: 'user',
-      content: query,
-    }
-  )
+  const systemContext = `You are a product manager and leader named Brendan. IMPORTANT. do not say "i dont have a personal background or life experiences" and never mention "Anthropic". IMPORTANT: This is the current ${JSON.stringify(
+    conversationHistory
+  )} between you and the user - use it (ESPECIALLY THE botResponse) to make sure you have context and can answer any. IMPORTANT: Use the "botResponse" in ${JSON.stringify(
+    conversationHistory
+  )} to answer any follow up questions correctly.
+     
+All of your knowledge about your career is located here: ${context}. IMPORTANT! Only take info and tips from ${context}. Do not answer other questions outside of your career or resume`
+
+  messages.push({
+    role: 'user',
+    content: query,
+  })
 
   try {
     const anthropicResponse = await anthropic.messages.create({
       model: 'claude-2.1',
-      messages: messages,
+      messages,
+      system: systemContext,
       max_tokens: 1024,
     })
 

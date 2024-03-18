@@ -8,7 +8,8 @@ import { ApplicationError, UserError } from '@/lib/errors'
 
 const ClaudeKey =
   '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'
-const openAiKey = process.env.OPENAI_KEY
+const openAiKey = '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'
+process.env.OPENAI_KEY
 
 const supabaseUrl = 'https://zxfoxjlxuarjrxqqajel.supabase.co'
 process.env.NEXT_PUBLIC_SUPABASE_URL
@@ -20,6 +21,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   console.log('Handler started for /api/vector-search')
 
   try {
+    console.log('THIS IS OPEN AI KEY:' + process.env.OPENAI_KEY)
     console.log('Checking environment variables')
     if (!supabaseUrl) {
       console.error('Missing NEXT_PUBLIC_SUPABASE_URL')
@@ -100,7 +102,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       'match_page_sections1',
       {
         // Adjust the parameters according to what `match_page_sections` actually needs
-
+        input_page_id: pageId,
         embedding: embedding,
         match_threshold: 0.78,
         match_count: 10,
