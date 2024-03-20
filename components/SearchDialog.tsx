@@ -60,7 +60,7 @@ function promptDataReducer(
 
 const supabaseUrl = 'https://yunwshtdhisikfbaaoeu.supabase.co'
 const supabaseAnonKey =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhqcnF1dHFicWZta2hhdGhhZG1nIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODY3ODg0MzMsImV4cCI6MjAwMjM2NDQzM30.P8S-5e8KPZCaviQpRwNZJX-mdwvt46cckSsr-DnVP8I'
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inp4Zm94amx4dWFyanJ4cXFhamVsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTAzNzg1ODcsImV4cCI6MjAyNTk1NDU4N30.UYABBjTFmy4dB8WlPOzi8ctLsTzjjLLaAFQYtWn1iKw'
 const supabase = createClient(supabaseUrl, supabaseAnonKey)
 
 interface SearchDialogProps {
@@ -296,9 +296,9 @@ export function SearchDialog({ guideName, guideAvatar, pageId }: SearchDialogPro
 
             {/* <DialogTitle>Chat with {guideName}!</DialogTitle> */}
             {/* <Button onClick={userid}>Show User ID</Button> */}
-            <DialogDescription>
+            {/* <DialogDescription>
               Ask me anything about my career or role expectations
-            </DialogDescription>
+            </DialogDescription> */}
             <hr />
             <button className="absolute top-0 right-2 p-2" onClick={() => setOpen(false)}>
               <X className="h-4 w-4 dark:text-gray-100" />

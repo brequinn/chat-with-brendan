@@ -18,7 +18,15 @@ export default async function handler(req, res) {
     return res.status(405).json({ message: 'Method Not Allowed' })
   }
 
+  console.log('Request body received:', req.body)
   const { query, context, sessionID, userEmail, userId, guideName } = req.body
+
+  if (!context) {
+    console.log('Context is undefined or missing')
+    return res.status(400).json({ message: 'Context is required' })
+  }
+
+  console.log('Context:', context)
 
   if (!sessionID) {
     console.log('Received request without sessionID or sessionID is undefined')
