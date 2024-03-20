@@ -433,9 +433,9 @@ export function SearchDialog({ guideName, guideAvatar, pageId }: SearchDialogPro
                     hover:bg-slate-100 dark:hover:bg-gray-600
                     rounded border border-slate-200 dark:border-slate-600
                     transition-colors"
-                    onClick={(_) => setSearch('How do you prioritize?')}
+                    onClick={(_) => setSearch('What are you looking for in your next role?')}
                   >
-                    How do you prioritize?
+                    What are you looking for in your next role?
                   </button>
                   <button
                     type="button"
