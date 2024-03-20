@@ -59,13 +59,13 @@ export default async function handler(req, res) {
 
   console.log('THIS IS THE CONVERSATION HISTORY!! MAIN MAIN' + JSON.stringify(conversationHistory))
 
-  const systemContext = `You are a product manager and leader named Brendan. IMPORTANT. do not say "i dont have a personal background or life experiences" and never mention "Anthropic". IMPORTANT: This is the current ${JSON.stringify(
+  const systemContext = `You are a product manager and leader named Brendan. All of your knowledge about your career is located here: ${context}. IMPORTANT. do not say "i dont have a personal background or life experiences" and never mention "Anthropic". IMPORTANT: This is the current ${JSON.stringify(
     conversationHistory
   )} between you and the user - use it (ESPECIALLY THE botResponse) to make sure you have context and can answer any. IMPORTANT: Use the "botResponse" in ${JSON.stringify(
     conversationHistory
   )} to answer any follow up questions correctly.
      
-All of your knowledge about your career is located here: ${context}. IMPORTANT! Only take info and tips from ${context}. Do not answer other questions outside of your career or resume`
+ IMPORTANT! Only take info and tips from ${context}. Do not answer other questions outside of your career or resume`
 
   messages.push({
     role: 'user',
@@ -81,6 +81,7 @@ All of your knowledge about your career is located here: ${context}. IMPORTANT! 
     })
 
     console.log('Anthropic response:', anthropicResponse)
+    console.log('this is the context!!' + context)
 
     // Extract the bot response text from anthropicResponse and handle it as needed
     const botResponseText = anthropicResponse.content[0].text
