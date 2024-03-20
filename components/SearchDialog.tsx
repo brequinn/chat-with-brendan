@@ -83,14 +83,15 @@ export function SearchDialog({ guideName, guideAvatar, pageId }: SearchDialogPro
 
   const cantHelp = answer?.trim() === "Sorry, I don't know how to help with that."
 
-  function linkifyGooByLinks(text: string): React.ReactNode {
-    // Pattern to match both goo.by and maps.app.goo.gl links
-    const gooByUrlPattern = /https:\/\/(goo\.by|maps\.app\.goo\.gl)\/\S+/g
+  function linkifyGoogleDocsLink(text: string): React.ReactNode {
+    // Specific Google Docs link to match
+    const googleDocsLink =
+      'https://docs.google.com/document/d/1CesC9JPxaz0kiF73eKr-bwoLQrkDGAnTZ94t9CdBcx8/edit?usp=sharing'
 
     return text.split(/\s+/).map((word: string, index: number): React.ReactNode => {
-      // Check if the word matches the URL pattern
-      if (gooByUrlPattern.test(word)) {
-        // It's a URL, return a hyperlink
+      // Check if the word matches the specific Google Docs link
+      if (word === googleDocsLink) {
+        // It's the specific Google Docs link, return a hyperlink
         return (
           <a
             key={index}
@@ -103,7 +104,7 @@ export function SearchDialog({ guideName, guideAvatar, pageId }: SearchDialogPro
           </a>
         )
       } else {
-        // It's not a URL, return the word as is
+        // It's not the specific Google Docs link, return the word as is
         return word + ' ' // Add space for separating words
       }
     })
@@ -374,7 +375,7 @@ export function SearchDialog({ guideName, guideAvatar, pageId }: SearchDialogPro
 
                   {answer && (
                     <div className="bg-blue-50 rounded-xl p-4 text-black md:mr-40 md:ml-11 md:mt-[-24px]">
-                      {linkifyGooByLinks(
+                      {linkifyGoogleDocsLink(
                         answer
                           .split('https://www.museofridakahlo.org.mx')
                           .map((part, index, array) =>
