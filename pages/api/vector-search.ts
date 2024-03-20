@@ -33,14 +33,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       throw new ApplicationError('Missing environment variable SUPABASE_SERVICE_ROLE_KEY')
     }
 
-    console.log('Parsing request data')
-    const requestData = await Request
-    if (!requestData) {
-      console.error('Missing request data')
-      throw new UserError('Missing request data')
-    }
-
-    console.log('Request data:', requestData)
     const { query, sessionID, useremail, userId, pageId, guideName } = req.body
 
     if (!query) {
@@ -120,26 +112,36 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     let tokenCount = 0
     let contextText = ''
 
+    console.log('Number of page sections:', pageSections.length)
+
     for (let i = 0; i < pageSections.length; i++) {
       const pageSection = pageSections[i]
       const content = pageSection.content
+
+      console.log(`Page section ${i + 1}:`)
+      console.log('Content:', content)
+
       const encoded = tokenizer.encode(content)
       tokenCount += encoded.text.length
 
+      console.log('Token count:', tokenCount)
+
       if (tokenCount >= 1500) {
+        console.log('Token count limit reached. Breaking the loop.')
         break
       }
 
       contextText += `${content.trim()}\n---\n`
     }
 
-    console.log('this is the context' + contextText)
-    console.log('this is the session id....RORY!!' + sessionID)
+    console.log('Context text:', contextText)
+
+    console.log('this is the session id' + sessionID)
 
     const prompt = codeBlock`
       ${oneLine`
     
-        " Try asking in a different way. I'll be sure to add that moving forward". Also do not include any external links to websites in your responses.
+        " 
       `}
       Context sections:
       ${contextText}

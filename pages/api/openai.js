@@ -1,11 +1,10 @@
-// /pages/api/openai.js
+// /pages/api/openai.js (also includes anthropic api call code)
 import { createClient } from '@supabase/supabase-js'
 import Anthropic from '@anthropic-ai/sdk'
 
 const supabaseUrl = 'https://zxfoxjlxuarjrxqqajel.supabase.co'
 const AnthropicKey = process.env.AnthropicKey
-const supabaseServiceKey =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inp4Zm94amx4dWFyanJ4cXFhamVsIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTcxMDM3ODU4NywiZXhwIjoyMDI1OTU0NTg3fQ._qACYspsirP2uR2LKdgixaKYlWqXONtkz4IDPdeQ6N4'
+const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY
 
 // Initialize Supabase client with the service key
 const supabase = createClient(supabaseUrl, supabaseServiceKey)
@@ -19,13 +18,14 @@ export default async function handler(req, res) {
   }
 
   console.log('Request body received:', req.body)
-  const { query, context, sessionID, userEmail, userId, guideName } = req.body
+  const { query, context = '', sessionID, userEmail, userId, guideName } = req.body
 
-  if (!context) {
-    console.log('Context is undefined or missing')
+  console.log('context:', context)
+  if (context === undefined || context.trim().length === 0) {
+    console.log('context is undefined or empty')
+  } else {
+    console.log('context is not empty')
   }
-
-  console.log('Context:', context)
 
   if (!sessionID) {
     console.log('Received request without sessionID or sessionID is undefined')
@@ -59,14 +59,37 @@ export default async function handler(req, res) {
     conversationHistory = await fetchConversationHistory(sessionID)
   }
 
-  const messages = conversationHistory.map((entry) => ({
-    role: 'user', // Assuming all entries are from the user
-    content: entry.userMessage,
-  }))
+  const messages = conversationHistory.map((entry) => {
+    const role = entry.userId ? 'user' : 'assistant' // Determine the role based on userId or other criteria
+    return {
+      role,
+      content: entry.userId ? entry.userMessage : entry.botResponse,
+    }
+  })
 
-  console.log('THIS IS THE CONVERSATION HISTORY!! MAIN MAIN' + JSON.stringify(conversationHistory))
+  if (messages.length === 0 || messages[0].role !== 'user') {
+    messages.unshift({
+      role: 'user',
+      content: query,
+    })
+  } else {
+    // If there's already a user message first, you might want to append the new query to the end
+    // or handle it according to your specific logic for maintaining conversation flow
+    messages.push({
+      role: 'user',
+      content: query,
+    })
+  }
 
-  const systemContext = `You are a product manager and leader named Brendan. All of your knowledge about your career is located here: ${context}. IMPORTANT. do not say "i dont have a personal background or life experiences" and never mention "Anthropic". IMPORTANT: This is the current ${JSON.stringify(
+  console.log('THIS IS THE CONVERSATION HISTORY!' + JSON.stringify(conversationHistory))
+  console.log('THIS IS THE CONTEXT' + JSON.stringify(context))
+
+  const systemContext = `You are a product manager and leader named Brendan. 
+  
+  All of your knowledge about your career is located here: ${context}. 
+  Never say "As an AI assistant"
+  IMPORTANT: Do not make up any information, if ${context}, say "Sorry I don't have any info about that, but I'll work on adding it!"
+  IMPORTANT: do not say "i dont have a personal background or life experiences" and never mention "Anthropic". IMPORTANT: This is the current ${JSON.stringify(
     conversationHistory
   )} between you and the user - use it (ESPECIALLY THE botResponse) to make sure you have context and can answer any. IMPORTANT: Use the "botResponse" in ${JSON.stringify(
     conversationHistory
@@ -74,17 +97,17 @@ export default async function handler(req, res) {
      
  IMPORTANT! Only take info and tips from ${context}. Do not answer other questions outside of your career or resume`
 
-  messages.push({
-    role: 'user',
-    content: query,
-  })
+  // messages.push({
+  //   role: 'user',
+  //   content: query,
+  // })
 
   try {
     const anthropicResponse = await anthropic.messages.create({
       model: 'claude-2.1',
       messages,
       system: systemContext,
-      max_tokens: 1024,
+      max_tokens: 1000,
     })
 
     console.log('Anthropic response:', anthropicResponse)

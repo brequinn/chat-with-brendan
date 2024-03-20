@@ -116,7 +116,7 @@ export default function Home() {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full">
               {isLoadingGuides ? (
-                <Spin tip="Loading guides" size="large" style={{ marginTop: 150 }}>
+                <Spin tip="Loading chat" size="large" style={{ marginTop: 150 }}>
                   <div className="content" />
                 </Spin>
               ) : (

@@ -195,7 +195,8 @@ export function SearchDialog({ guideName, guideAvatar, pageId }: SearchDialogPro
 
   const handleConfirm = React.useCallback(
     async (query: string) => {
-      console.log('Starting handleConfirm with query:', query) // Log the query
+      console.log('Starting handleConfirm with query:', query)
+      console.log('Page ID is...:', pageId) // Log the query
       setAnswer(undefined) // Reset the previous answer
       setQuestion(query) // Set the new question
       setSearch('') // Clear the search input
