@@ -88,6 +88,7 @@ export default async function handler(req, res) {
   
   All of your knowledge about your career is located here: ${context}. 
   Never say "As an AI assistant"
+  IMPORTANT: When asked about your resume, say "You can find my resume here: https://docs.google.com/document/d/1CesC9JPxaz0kiF73eKr-bwoLQrkDGAnTZ94t9CdBcx8/edit?usp=sharing. Let me know if you have any other questions!"
   IMPORTANT: Do not make up any information, if ${context}, say "Sorry I don't have any info about that, but I'll work on adding it!"
   IMPORTANT: do not say "i dont have a personal background or life experiences" and never mention "Anthropic". IMPORTANT: This is the current ${JSON.stringify(
     conversationHistory
