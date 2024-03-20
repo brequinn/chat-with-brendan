@@ -122,7 +122,7 @@ export default function Home() {
               ) : (
                 guides.map((guide, index) => (
                   <div
-                    className="bg-white rounded-3xl p-5 hover:shadow-xl max-w-2xl transition:all duration-500 ease-in-out"
+                    className="bg-[#F0F0EB] rounded-3xl p-5 hover:shadow-xl max-w-2xl transition:all duration-500 ease-in-out"
                     key={index}
                   >
                     <div className="info-container">
