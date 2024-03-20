@@ -23,7 +23,6 @@ export default async function handler(req, res) {
 
   if (!context) {
     console.log('Context is undefined or missing')
-    return res.status(400).json({ message: 'Context is required' })
   }
 
   console.log('Context:', context)
