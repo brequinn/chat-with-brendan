@@ -150,7 +150,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     `
     const baseUrl =
       process.env.NODE_ENV === 'production'
-        ? 'https://travel-pal3.vercel.app'
+        ? 'https://chat-with-brendan-1.vercel.app'
         : 'http://localhost:3000'
 
     const requestBody = {
