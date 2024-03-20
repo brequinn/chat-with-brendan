@@ -69,7 +69,7 @@ export default function Home() {
     const guides = [
       {
         name: 'Brendan',
-        avatar: '/images/paseana-avatar.png',
+        avatar: '/images/brendan-avatar.png',
         country: 'Mexico',
         location: 'Mexico City',
         bio: '',
@@ -149,7 +149,7 @@ export default function Home() {
         <footer className="w-full text-center py-4 absolute bottom-0">
           <span className="flex items-center justify-center">
             Made with{' '}
-            <img src="/assets/anthropic-logo.png" alt="Anthropic Logo" className="ml-2 h-5" />
+            <img src="/assets/anthropic-logo.png" alt="Anthropic Logo" className="ml-5 h-8" />
           </span>
         </footer>
       </main>
