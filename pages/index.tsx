@@ -72,7 +72,7 @@ export default function Home() {
         avatar: '/images/paseana-avatar.png',
         country: 'Mexico',
         location: 'Mexico City',
-        bio: 'Ask me about anything about my career or what I am looking for next',
+        bio: '',
         specialties: 'Bars, Cantinas, Tequila, Mezcal, 🌮 Tacos, Dancing, Museums, Markets, Parks',
         image: '/images/paseana-cover.png',
         social: 'https://www.instagram.com/foodhoodtours/',
@@ -111,7 +111,7 @@ export default function Home() {
             <div className="text-base md:text-lg pt-4 mb-4 text-zinc-500">
               <h3 className="text-3xl font-semibold text-black mt-12 mb-8">
                 Hi! I am Brendan&apos;s personal co-pilot 🤖 trained on his resume and knowledge as
-                a product leader. Ask me anything about &quot;us&quot;, &quot;we&quot;, and more!
+                a product leader. Ask me anything!
               </h3>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full">
