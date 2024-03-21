@@ -54,7 +54,7 @@ export default function Home() {
         // Update state with fetched guides
         setGuides(data)
         console.log('Guides state after update:', data)
-        console.log('Guides fetched successfully:', data)
+        console.log('Guides fetchfed successfully:', data)
       })
       .catch((error) => {
         console.error('Error fetching guides:', error)
@@ -90,7 +90,13 @@ export default function Home() {
       <header className="w-full flex justify-between items-center p-2 absolute top-0">
         <div className="max-w-6xl md:m-auto flex w-full justify-between items-center py-2 mx-4">
           <Link href="/">
-            <img src="/assets/brendan-logo.png" alt="TravelPal" width={500} height={354} />
+            <img
+              src="/assets/brendan-logo.png"
+              alt="TravelPal"
+              width={500}
+              height={354}
+              loading="lazy"
+            />
           </Link>
         </div>
       </header>
@@ -147,9 +153,9 @@ export default function Home() {
           <div className="text-center relative inline-block"></div>
         </div>
         <footer className="w-full text-center py-4 absolute bottom-0">
-          <span className="flex items-center justify-center text-zinc-900  px-2 py-1 rounded">
+          <span className="flex items-center justify-center text-zinc-900 px-2 py-1 rounded">
             Made with{' '}
-            <img src="/assets/anthropic-logo.png" alt="Anthropic Logo" className="ml-5 h-8" />
+            <img src="/assets/anthropic-logo.png" alt="Anthropic Logo" className="ml-1 h-7" />
           </span>
         </footer>
       </main>

@@ -3,6 +3,7 @@
 import * as React from 'react'
 import { useEffect, useState } from 'react'
 import { Button } from '@/components/ui/button'
+import { AnthropicSpinner } from '@/components/ui/anthropic-spinner'
 import { createClient, User } from '@supabase/supabase-js'
 import {
   Dialog,
@@ -342,8 +343,8 @@ export function SearchDialog({ guideName, guideAvatar, pageId }: SearchDialogPro
               )}
 
               {isLoading && (
-                <div className="animate-spin relative flex w-5 h-5 ml-2">
-                  <Loader />
+                <div className="flex justify-center mt-4">
+                  <AnthropicSpinner />
                 </div>
               )}
 
