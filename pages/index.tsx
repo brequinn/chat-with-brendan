@@ -147,7 +147,7 @@ export default function Home() {
           <div className="text-center relative inline-block"></div>
         </div>
         <footer className="w-full text-center py-4 absolute bottom-0">
-          <span className="flex items-center justify-center">
+          <span className="flex items-center justify-center text-zinc-900  px-2 py-1 rounded">
             Made with{' '}
             <img src="/assets/anthropic-logo.png" alt="Anthropic Logo" className="ml-5 h-8" />
           </span>
