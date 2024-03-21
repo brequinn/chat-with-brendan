@@ -6,6 +6,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import 'tailwindcss/tailwind.css'
 import { Alert, Button, Flex, Menu, Spin } from 'antd'
+import { AnthropicSpinner } from '@/components/ui/anthropic-spinner'
 import { useRouter } from 'next/router'
 import { useRef } from 'react'
 import { DownOutlined, SmileOutlined, SearchOutlined } from '@ant-design/icons'
@@ -122,9 +123,9 @@ export default function Home() {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full">
               {isLoadingGuides ? (
-                <Spin tip="Loading chat" size="large" style={{ marginTop: 150 }}>
-                  <div className="content" />
-                </Spin>
+                <div className="flex justify-center items-center mt-8">
+                  <AnthropicSpinner />
+                </div>
               ) : (
                 guides.map((guide, index) => (
                   <div
