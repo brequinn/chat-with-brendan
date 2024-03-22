@@ -86,10 +86,10 @@ export default function Home() {
   }, [])
 
   return (
-    <>
-      {/* nav bar */}
-      <header className="w-full flex justify-between items-center p-2 absolute top-0">
-        <div className="max-w-6xl md:m-auto flex w-full justify-between items-center py-2 mx-4">
+    <div className="min-h-screen bg-[#F0F0EB]">
+      {/* hero */}
+      <main>
+        <div className="px-4 max-w-6xl w-full pb-[150px] pt-6 m-auto">
           <Link href="/">
             <img
               src="/assets/brendan-logo.png"
@@ -100,23 +100,11 @@ export default function Home() {
             />
           </Link>
         </div>
-      </header>
-      {/* end nav bar */}
-      {/* hero */}
-      <main
-        style={{
-          backgroundColor: '#F0F0EB',
-          backgroundSize: 'cover',
-        }}
-      >
-        <div className="max-w-6xl w-full pt-[150px] m-auto">
-          <div className="grid lg:grid-cols-2 gap-4 mx-4"></div>
-        </div>
         {/* end hero */}
         <div className="">
-          <div className="min-h-screen px-4 max-w-6xl m-auto">
+          <div className="px-4 max-w-6xl m-auto">
             <div className="text-base md:text-lg pt-4 mb-4 text-zinc-500">
-              <h3 className="text-3xl font-semibold text-black mt-12 mb-8">
+              <h3 className="text-3xl font-medium text-black mt-12 mb-8">
                 Hi! I am Brendan&apos;s personal co-pilot 🤖 trained on his resume and knowledge as
                 a product leader. Ask me anything!
               </h3>
@@ -129,7 +117,7 @@ export default function Home() {
               ) : (
                 guides.map((guide, index) => (
                   <div
-                    className="bg-[#F0F0EB] rounded-3xl p-5 hover:shadow-xl max-w-2xl transition:all duration-500 ease-in-out"
+                    className="bg-[#F0F0EB] rounded-3xl max-w-2xl transition:all duration-500 ease-in-out"
                     key={index}
                   >
                     <div className="info-container">
@@ -160,6 +148,6 @@ export default function Home() {
           </span>
         </footer>
       </main>
-    </>
+    </div>
   )
 }

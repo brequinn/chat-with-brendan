@@ -13,6 +13,7 @@ module.exports = {
     extend: {
       fontFamily: {
         inter: ["Inter", "sans-serif"],
+        copernicus: ["Copernicus", "sans-serif"],
       },
     },
   },

@@ -277,7 +277,7 @@ export function SearchDialog({ guideName, guideAvatar, pageId }: SearchDialogPro
     <>
       <button
         onClick={() => setOpen(true)}
-        className="mt-6 text-base h-16 flex gap-2 items-center px-6 py-2 z-50 relative w-full rounded-full
+        className="bg-white mt-6 text-base h-16 flex gap-2 items-center px-6 py-2 z-50 relative w-full rounded-full
   text-slate-500 dark:text-slate-400  hover:text-slate-700 dark:hover:text-slate-300 transition-colors border-2 border-black hover:border-black mx-auto"
       >
         <span className="flex flex-row justify-between w-full ml-2 text-base whitespace-nowrap">

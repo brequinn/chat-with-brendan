@@ -4,6 +4,27 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'Copernicus';
+  src: url('/fonts/copernicus-400.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Copernicus';
+  src: url('/fonts/copernicus-400-italic.woff2') format('woff2');
+  font-weight: 400;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Copernicus';
+  src: url('/fonts/copernicus-500.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+}
+
 :root {
   --max-width: 1100px;
   --border-radius: 12px;
@@ -95,7 +116,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: 'M PLUS Rounded 1c', sans-serif;
+  font-family: 'Copernicus', sans-serif;
 }
 
 body {
@@ -115,13 +136,6 @@ a {
   }
 }
 
-@font-face {
-  font-family: 'Copernicus';
-  src: url('/fonts/copernicus-500-italic.woff2') format('woff2');
-  font-weight: 500;
-  font-style: italic;
-  font-display: swap;
-}
 /* 
 .hero-input {
  svg {
