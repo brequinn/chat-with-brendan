@@ -89,13 +89,13 @@ export default function Home() {
     <div className="min-h-screen bg-[#F0F0EB]">
       {/* hero */}
       <main>
-        <div className="px-4 max-w-6xl w-full pb-[150px] pt-6 m-auto">
-          <Link href="/">
+        <div className="px-4 max-w-6xl w-full pb-[40px] md:pb-[150px] pt-6 m-auto">
+          <Link className="flex items-center gap-4" href="/">
+            <span className="font-copernicus text-2xl md:text-4xl font-normal"> Get to know Brendan</span>
             <img
               src="/assets/brendan-logo.png"
               alt="TravelPal"
-              width={500}
-              height={354}
+              className="h-12"
               loading="lazy"
             />
           </Link>
