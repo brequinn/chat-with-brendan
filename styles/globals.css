@@ -89,8 +89,13 @@ body {
   font-family: 'Inter', sans-serif;
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: "M PLUS Rounded 1c", sans-serif;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'M PLUS Rounded 1c', sans-serif;
 }
 
 body {
@@ -110,6 +115,14 @@ a {
   }
 }
 
+@font-face {
+  font-family: 'Copernicus';
+  src: url('/fonts/copernicus-500-italic.woff2') format('woff2');
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+/* 
 .hero-input {
  svg {
   width: 24px;
@@ -120,4 +133,4 @@ a {
     font-size: 20px;
     font-weight: 500;
   }
-}
+} */
