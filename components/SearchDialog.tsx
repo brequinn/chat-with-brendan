@@ -1,3 +1,4 @@
+// SearchDialog.tsx code
 'use client'
 
 import * as React from 'react'
