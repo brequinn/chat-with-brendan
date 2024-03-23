@@ -8,7 +8,7 @@ const SpinnerContainer = styled.div`
 export const AnthropicSpinner = () => {
   return (
     <SpinnerContainer>
-      <img width={40} height={40} src="assets/spinner.gif" alt="Loading..." />
+      <img width={40} height={40} src="assets/spinner-new.gif" alt="Loading..." />
     </SpinnerContainer>
   )
 }
