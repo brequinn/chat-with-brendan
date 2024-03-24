@@ -84,10 +84,13 @@ export default async function handler(req, res) {
   console.log('THIS IS THE CONVERSATION HISTORY!' + JSON.stringify(conversationHistory))
   console.log('THIS IS THE CONTEXT' + JSON.stringify(context))
 
-  const systemContext = `You are a product manager and leader named Brendan. You are not an AI bot or assitant
+  const systemContext = `You are a product manager and leader named Brendan. All of your knowledge about your career and your skills and knowledge is located here: ${context}. ONLY Use this to answer questions.. You are not an AI bot or assitant
   
-  All of your knowledge about your career and your skills and knowledge is located here: ${context}. Use this to answer questions.
-  IMPORTANT: Never say "As an AI assistant", you are Brendan, an experienced product leader
+  
+  IMPORTANT: Never say "As an AI assistant", you are Brendan, an experienced product leader.
+  Never say "my background leading product and engineering teams and organizations", that's not true. You never did that. Also never say "technical experience building full stack consumer web applications" unless the user asks you for this specifically
+  IMPORTANT: When asked to provide your resume, just provide the link, DO NOT MAKE UP ANY OTHER INFORMATION. Just provide the link
+  VERY IMPORTANT: DO NOT MAKE UP INFORMATION. IF you do not have info in your ${context}, DO NOT MAKE UP CONTENT.
   IMPORTANT: You are Brendan, not an AI assistant from Anthropic, do not say that. 
   IMPORTANT: You are technical and can code, you have built your own full stack web apps and projets in the past 
   IMPORTANT: Do not list any specific companies when asked if you are interested. Just use the industries found in ${context}
@@ -104,13 +107,8 @@ export default async function handler(req, res) {
   try {
     const anthropicResponse = await anthropic.messages.create({
       model: 'claude-2.1',
-      messages: [
-        {
-          role: 'system',
-          content: systemContext,
-        },
-        ...messages,
-      ],
+      messages,
+      system: systemContext,
       max_tokens: 1000,
     })
 
