@@ -58,23 +58,27 @@ export default async function handler(req, res) {
   if (sessionID) {
     conversationHistory = await fetchConversationHistory(sessionID)
   }
+  const messages = conversationHistory.reduce((acc, entry) => {
+    const role = entry.userId ? 'user' : 'assistant'
+    const content = entry.userId ? entry.userMessage : entry.botResponse
 
-  const messages = conversationHistory.map((entry) => {
-    const role = entry.userId ? 'user' : 'assistant' // Determine the role based on userId or other criteria
-    return {
-      role,
-      content: entry.userId ? entry.userMessage : entry.botResponse,
+    if (acc.length === 0) {
+      // If it's the first message, always set the role to 'user'
+      acc.push({ role: 'user', content })
+    } else if (acc[acc.length - 1].role !== role) {
+      acc.push({ role, content })
+    } else {
+      acc[acc.length - 1].content += '\n' + content
     }
-  })
 
-  if (messages.length === 0 || messages[0].role !== 'user') {
-    messages.unshift({
-      role: 'user',
-      content: query,
-    })
-  } else {
-    // If there's already a user message first, you might want to append the new query to the end
-    // or handle it according to your specific logic for maintaining conversation flow
+    return acc
+  }, [])
+
+  // Check if the last message in the conversation history is from the user
+  const lastMessageFromUser = messages.length > 0 && messages[messages.length - 1].role === 'user'
+
+  // Add the current user query as a new message only if the last message is not from the user
+  if (!lastMessageFromUser) {
     messages.push({
       role: 'user',
       content: query,
@@ -110,7 +114,7 @@ export default async function handler(req, res) {
       model: 'claude-2.1',
       messages,
       system: systemContext,
-      max_tokens: 300,
+      max_tokens: 200,
     })
 
     console.log('Anthropic response:', anthropicResponse)
