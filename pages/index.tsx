@@ -139,6 +139,29 @@ export default function Home() {
           </div>
           <div className="text-center relative inline-block"></div>
         </div>
+        {/* quick reference start */}
+        <div className="mb-4">
+          <h3 className="text-sm font-medium mb-2 text-gray-700">Quick references</h3>
+          <div className="grid grid-cols-2 gap-2 bg-gray-100 p-2 rounded-lg">
+            <a href="https://example.com/resume" target="_blank" rel="noopener noreferrer">
+              <div className="bg-white p-3 rounded-md shadow-sm hover:bg-gray-50 transition-colors duration-150 ease-in-out flex items-center">
+                <img src="/assets/resume-icon.png" alt="Resume icon" className="w-5 h-5 mr-2" />
+                <span className="text-sm font-medium text-gray-700">My Resume</span>
+              </div>
+            </a>
+            <a
+              href="https://www.linkedin.com/in/yourprofile/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <div className="bg-white p-3 rounded-md shadow-sm hover:bg-gray-50 transition-colors duration-150 ease-in-out flex items-center">
+                <img src="/assets/linkedin-icon.png" alt="LinkedIn icon" className="w-5 h-5 mr-2" />
+                <span className="text-sm font-medium text-gray-700">My LinkedIn</span>
+              </div>
+            </a>
+          </div>
+        </div>
+        {/* quick reference end */}
         <footer className="w-full text-center py-4 absolute bottom-0">
           <span className="flex items-center justify-center text-zinc-900 px-2 py-1 rounded">
             Made with{' '}
