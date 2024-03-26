@@ -137,6 +137,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     console.log('Context text:', contextText)
 
+    console.log('this is the Anthropic API key ' + process.env.ANTHROPIC_KEY)
     console.log('this is the session id' + sessionID)
 
     const prompt = codeBlock`
