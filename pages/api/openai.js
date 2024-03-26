@@ -114,7 +114,7 @@ export default async function handler(req, res) {
     })
 
     console.log('Anthropic response:', anthropicResponse)
-    console.log('this is the context!!' + context)
+    console.log('Anthropic response content:', anthropicResponse.content)
 
     // Extract the bot response text from anthropicResponse and handle it as needed
     const botResponseText = anthropicResponse.content[0].text
