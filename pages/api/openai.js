@@ -3,7 +3,7 @@ import { createClient } from '@supabase/supabase-js'
 import Anthropic from '@anthropic-ai/sdk'
 
 const supabaseUrl = 'https://zxfoxjlxuarjrxqqajel.supabase.co'
-const AnthropicKey = process.env.AnthropicKey
+const AnthropicKey = process.env.ANTHROPIC_KEY
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY
 
 // Initialize Supabase client with the service key
@@ -110,7 +110,7 @@ export default async function handler(req, res) {
       model: 'claude-2.1',
       messages,
       system: systemContext,
-      max_tokens: 320,
+      max_tokens: 1000,
     })
 
     console.log('Anthropic response:', anthropicResponse)

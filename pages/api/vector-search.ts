@@ -1,3 +1,4 @@
+// get to know brendan / chat with brendan / vector Search.ts code
 import type { NextRequest } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
 import { codeBlock, oneLine } from 'common-tags'
@@ -5,6 +6,7 @@ import GPT3Tokenizer from 'gpt3-tokenizer'
 import OpenAI from 'openai'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { ApplicationError, UserError } from '@/lib/errors'
+import { Search } from 'lucide-react'
 
 const AnthropicKey = process.env.AnthropicKey
 const openAiKey = process.env.OPENAI_KEY
@@ -160,7 +162,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       userId: userId,
       guideName: guideName,
     }
-
+    console.log('Sending request to OpenAI API route')
     const response = await fetch(`${baseUrl}/api/openai`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
