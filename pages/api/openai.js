@@ -110,7 +110,7 @@ export default async function handler(req, res) {
       model: 'claude-2.1',
       messages,
       system: systemContext,
-      max_tokens: 500,
+      max_tokens: 320,
     })
 
     console.log('Anthropic response:', anthropicResponse)
