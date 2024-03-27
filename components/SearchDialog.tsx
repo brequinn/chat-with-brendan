@@ -361,7 +361,7 @@ export function SearchDialog({ guideName, guideAvatar, pageId }: SearchDialogPro
               )}
 
               {answer && !hasError ? (
-                <div className="flex flex-col gap-4 dark:text-white max-h-[50vh] overflow-y-auto">
+                <div className="flex flex-col gap-4 dark:text-white">
                   <div className="flex flex-row gap-1">
                     <div className="w-10 h-10 rounded-full text-center flex items-center justify-center">
                       <Image
