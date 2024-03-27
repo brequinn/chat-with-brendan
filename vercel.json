@@ -1,7 +1,0 @@
-{
-  "functions": {
-    "/api/vector-search.js": {
-      "maxDuration": 20
-    }
-  }
-}
