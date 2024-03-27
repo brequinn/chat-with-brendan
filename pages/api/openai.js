@@ -52,7 +52,7 @@ IMPORTANT! Only take info and tips from ${context}. Do not answer other question
       model: 'claude-2.1',
       messages: [{ role: 'user', content: query }],
       system: systemContext,
-      max_tokens: 200,
+      max_tokens: 100,
     })
 
     console.log('Anthropic response received')
