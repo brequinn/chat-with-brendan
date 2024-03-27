@@ -11,7 +11,7 @@ import { Search } from 'lucide-react'
 
 const AnthropicKey = process.env.AnthropicKey
 const openAiKey = process.env.OPENAI_KEY
-const vectorSearchTimeout = parseInt(process.env.VECTOR_SEARCH_TIMEOUT || '10000', 10)
+const vectorSearchTimeout = parseInt(process.env.VECTOR_SEARCH_TIMEOUT || '20000', 20)
 const supabaseUrl = 'https://zxfoxjlxuarjrxqqajel.supabase.co'
 // process.env.NEXT_PUBLIC_SUPABASE_URL
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY
