@@ -1,3 +1,5 @@
+// vector-Search.ts file
+
 import type { NextRequest } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
 import { codeBlock, oneLine } from 'common-tags'
@@ -9,7 +11,7 @@ import { Search } from 'lucide-react'
 
 const AnthropicKey = process.env.AnthropicKey
 const openAiKey = process.env.OPENAI_KEY
-
+const vectorSearchTimeout = parseInt(process.env.VECTOR_SEARCH_TIMEOUT || '10000', 10)
 const supabaseUrl = 'https://zxfoxjlxuarjrxqqajel.supabase.co'
 // process.env.NEXT_PUBLIC_SUPABASE_URL
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY
@@ -168,24 +170,36 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       userId: userId,
       guideName: guideName,
     }
-    console.log('Sending request to OpenAI API route')
-    const response = await fetch(`${baseUrl}/api/openai`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(requestBody),
-    })
-    console.log('OpenAI API route response received')
-
-    if (!response.ok) {
-      console.error('Failed to communicate with OpenAI API route', response.status)
-      throw new ApplicationError('Failed to communicate with OpenAI API route', {
-        status: response.status,
+    try {
+      console.log('Sending request to OpenAI API route')
+      const response = await fetch(`${baseUrl}/api/openai`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(requestBody),
+        signal: AbortSignal.timeout(vectorSearchTimeout),
       })
-    }
+      console.log('OpenAI API route response received')
 
-    const chatCompletion = await response.json()
-    console.log('Returning response')
-    res.status(200).json(chatCompletion)
+      if (!response.ok) {
+        console.error('Failed to communicate with OpenAI API route', response.status)
+        throw new ApplicationError('Failed to communicate with OpenAI API route', {
+          status: response.status,
+        })
+      }
+
+      const chatCompletion = await response.json()
+      console.log('Returning response')
+      res.status(200).json(chatCompletion)
+    } catch (error) {
+      if (error instanceof DOMException && error.name === 'AbortError') {
+        console.error('Request to OpenAI API route timed out')
+        throw new ApplicationError('Request to OpenAI API route timed out', {
+          status: 504,
+        })
+      } else {
+        throw error
+      }
+    }
   } catch (err) {
     console.error('Error in handler for /api/vector-search:', err)
 
