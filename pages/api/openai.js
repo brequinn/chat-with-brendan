@@ -47,6 +47,7 @@ IMPORTANT: do not say "i dont have a personal background or life experiences" an
 IMPORTANT! Only take info and tips from ${context}. Do not answer other questions outside of your career or resume`
 
   try {
+    console.log('Sending request to Anthropic API')
     const anthropicResponse = await anthropic.messages.create({
       model: 'claude-2.1',
       messages: [{ role: 'user', content: query }],
@@ -54,6 +55,7 @@ IMPORTANT! Only take info and tips from ${context}. Do not answer other question
       max_tokens: 200,
     })
 
+    console.log('Anthropic response received')
     console.log('Anthropic response:', anthropicResponse)
     console.log('Anthropic response content:', anthropicResponse.content)
 
@@ -62,7 +64,7 @@ IMPORTANT! Only take info and tips from ${context}. Do not answer other question
 
     // Send botResponseText to client or save it to database
 
-    // Insert conversation history into Supabase
+    console.log('Inserting conversation history into Supabase')
     const { error } = await supabase.from('conversationhistory').insert([
       {
         useremail: userEmail,
@@ -80,7 +82,10 @@ IMPORTANT! Only take info and tips from ${context}. Do not answer other question
       return res.status(500).json({ message: 'Internal Server Error' })
     }
 
+    console.log('Conversation history inserted successfully')
+
     // Return the anthropicResponse to client
+    console.log('Returning Anthropic response to client')
     res.status(200).json(anthropicResponse)
   } catch (error) {
     console.error('Anthropic API error:', error)
