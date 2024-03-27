@@ -135,7 +135,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
       console.log('Token count:', tokenCount)
 
-      if (tokenCount >= 1000) {
+      if (tokenCount >= 700) {
         console.log('Token count limit reached. Breaking the loop.')
         break
       }
