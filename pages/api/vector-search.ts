@@ -1,4 +1,3 @@
-// get to know brendan / chat with brendan / vector Search.ts code
 import type { NextRequest } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
 import { codeBlock, oneLine } from 'common-tags'
@@ -47,6 +46,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     console.log('Sanitizing query and moderating content')
     const sanitizedQuery = query.trim()
     try {
+      console.log('Sending request to OpenAI moderation API')
       const response = await fetch('https://api.openai.com/v1/moderations', {
         method: 'POST',
         headers: {
@@ -55,6 +55,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         },
         body: JSON.stringify({ input: sanitizedQuery }),
       })
+
+      console.log('Moderation API response received')
 
       if (!response.ok) {
         console.error('Moderation API response not OK:', response.status)
@@ -77,16 +79,19 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     console.log('Creating embedding')
     const openai = new OpenAI({ apiKey: openAiKey })
+    console.log('Sending request to OpenAI embeddings API')
     const embeddingResponse = await openai.embeddings.create({
       model: 'text-embedding-ada-002',
       input: sanitizedQuery.replaceAll('\n', ' '),
     })
+    console.log('Embedding response received')
 
     const embedding = embeddingResponse.data[0].embedding
 
     console.log('Matching page sections')
     console.log('Matching page sections with pageId:', pageId)
 
+    console.log('Sending request to match_page_sections1 RPC')
     const { error: matchError, data: pageSections } = await supabaseClient.rpc(
       'match_page_sections1',
       {
@@ -99,6 +104,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         // other parameters as needed
       }
     )
+    console.log('match_page_sections1 RPC response received')
 
     if (matchError) {
       console.error('Failed to match page sections:', matchError)
@@ -137,7 +143,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     console.log('Context text:', contextText)
 
-    console.log('this is the Anthropic API key ' + process.env.ANTHROPIC_KEY)
     console.log('this is the session id' + sessionID)
 
     const prompt = codeBlock`
@@ -169,6 +174,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(requestBody),
     })
+    console.log('OpenAI API route response received')
 
     if (!response.ok) {
       console.error('Failed to communicate with OpenAI API route', response.status)
