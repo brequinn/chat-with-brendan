@@ -154,7 +154,7 @@ export default function Home() {
               </div>
             </a>
             <a
-              href="https://www.linkedin.com/in/yourprofile/"
+              href="https://www.linkedin.com/in/brendanmquinn/"
               target="_blank"
               rel="noopener noreferrer"
             >
