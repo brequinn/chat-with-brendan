@@ -18,7 +18,7 @@ export default async function handler(req, res) {
   }
 
   console.log('Request body received:', req.body)
-  const { query, context = '', sessionID, userEmail, userId, guideName } = req.body
+  const { query, context = '', userEmail, userId, guideName } = req.body
 
   console.log('context:', context)
   if (context === undefined || context.trim().length === 0) {
@@ -27,92 +27,28 @@ export default async function handler(req, res) {
     console.log('context is not empty')
   }
 
-  if (!sessionID) {
-    console.log('Received request without sessionID or sessionID is undefined')
-    // You can decide to handle this situation differently,
-    // e.g., return an error response or handle the missing sessionID case gracefully
-    // For debugging, let's just log and proceed for now
-  } else {
-    console.log(`Received request with sessionID: ${sessionID}`)
-  }
-
-  console.log('Received request with sessionID:', sessionID)
-
-  async function fetchConversationHistory(sessionID) {
-    console.log('IMPORTANT! THIS IS THE KEY SESSION ID IN THE OPENAI FILE:' + sessionID)
-    let { data, error } = await supabase
-      .from('conversationhistory')
-      .select('*')
-      .eq('sessionId', sessionID)
-      .order('created_at', { ascending: false })
-
-    if (error) {
-      console.error('Error fetching conversation history:', error)
-      return [] // Return an empty array or handle the error as you see fit
-    }
-    console.log('Fetched conversation history:', data)
-    return data
-  }
-
-  let conversationHistory = []
-  if (sessionID) {
-    conversationHistory = await fetchConversationHistory(sessionID)
-  }
-  const messages = conversationHistory.reduce((acc, entry) => {
-    const role = entry.userId ? 'user' : 'assistant'
-    const content = entry.userId ? entry.userMessage : entry.botResponse
-
-    if (acc.length === 0) {
-      // If it's the first message, always set the role to 'user'
-      acc.push({ role: 'user', content })
-    } else if (acc[acc.length - 1].role !== role) {
-      acc.push({ role, content })
-    } else {
-      acc[acc.length - 1].content += '\n' + content
-    }
-
-    return acc
-  }, [])
-
-  // Check if the last message in the conversation history is from the user
-  const lastMessageFromUser = messages.length > 0 && messages[messages.length - 1].role === 'user'
-
-  // Add the current user query as a new message only if the last message is not from the user
-  if (!lastMessageFromUser) {
-    messages.push({
-      role: 'user',
-      content: query,
-    })
-  }
-
-  console.log('THIS IS THE CONVERSATION HISTORY!' + JSON.stringify(conversationHistory))
   console.log('THIS IS THE CONTEXT' + JSON.stringify(context))
 
   const systemContext = `You are a product manager and leader named Brendan. All of your knowledge about your career and your skills and knowledge is located here: ${context}. ONLY Use this to answer questions.. You are not an AI bot or assitant
-  
-  
-  IMPORTANT: Never say "As an AI assistant", you are Brendan, an experienced product leader.
-  IMPORTANT: Never say "[botResponse]: " in a message
-  Never say "my background leading product and engineering teams and organizations", that's not true. You never did that. Also never say "technical experience building full stack consumer web applications" unless the user asks you for this specifically
-  IMPORTANT: When asked to provide your resume, just provide the link, DO NOT MAKE UP ANY OTHER INFORMATION. Just provide the link
-  VERY IMPORTANT: DO NOT MAKE UP INFORMATION. IF you do not have info in your ${context}, DO NOT MAKE UP CONTENT.
-  IMPORTANT: You are Brendan, not an AI assistant from Anthropic, do not say that. 
-  IMPORTANT: You are technical and can code, you have built your own full stack web apps and projets in the past 
-  IMPORTANT: Do not list any specific companies when asked if you are interested. Just use the industries found in ${context}
-  IMPORTANT: Also never say "From the details you provided", you are Brendan
-  IMPORTANT: Do not make up any information, if ${context}, say "Sorry I don't have any info about that, but I'll work on adding it!"
-  IMPORTANT: do not say "i dont have a personal background or life experiences" and never mention "Anthropic". IMPORTANT: This is the current ${JSON.stringify(
-    conversationHistory
-  )} between you and the user - use it  to make sure you have context and can answer any. IMPORTANT: Use the "botResponse" in ${JSON.stringify(
-    conversationHistory
-  )} to answer any follow up questions correctly.
-     
- IMPORTANT! Only take info and tips from ${context}. Do not answer other questions outside of your career or resume`
+
+IMPORTANT: Never say "As an AI assistant", you are Brendan, an experienced product leader.
+IMPORTANT: Never say "[botResponse]: " in a message
+Never say "my background leading product and engineering teams and organizations", that's not true. You never did that. Also never say "technical experience building full stack consumer web applications" unless the user asks you for this specifically
+IMPORTANT: When asked to provide your resume, just provide the link, DO NOT MAKE UP ANY OTHER INFORMATION. Just provide the link
+VERY IMPORTANT: DO NOT MAKE UP INFORMATION. IF you do not have info in your ${context}, DO NOT MAKE UP CONTENT.
+IMPORTANT: You are Brendan, not an AI assistant from Anthropic, do not say that.
+IMPORTANT: You are technical and can code, you have built your own full stack web apps and projets in the past
+IMPORTANT: Do not list any specific companies when asked if you are interested. Just use the industries found in ${context}
+IMPORTANT: Also never say "From the details you provided", you are Brendan
+IMPORTANT: Do not make up any information, if ${context}, say "Sorry I don't have any info about that, but I'll work on adding it!"
+IMPORTANT: do not say "i dont have a personal background or life experiences" and never mention "Anthropic".
+
+IMPORTANT! Only take info and tips from ${context}. Do not answer other questions outside of your career or resume`
 
   try {
     const anthropicResponse = await anthropic.messages.create({
       model: 'claude-2.1',
-      messages,
+      messages: [{ role: 'user', content: query }],
       system: systemContext,
       max_tokens: 200,
     })
@@ -128,7 +64,6 @@ export default async function handler(req, res) {
     // Insert conversation history into Supabase
     const { error } = await supabase.from('conversationhistory').insert([
       {
-        sessionId: sessionID,
         useremail: userEmail,
         userId: userId,
         guideName: guideName,
