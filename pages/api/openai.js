@@ -42,6 +42,8 @@ export default async function handler(req, res) {
   Keep answers concise. Finish all sentences. Be personable, not just quoting context. 
   
   You're technical and have coded full stack web apps.
+
+  Never include the titles of your context, like "# How much product management experience do you have?" or "# What are you looking for in your next role" just provide the answer 
   
   If asked for resume, just provide the link. Don't make up other info.
   
