@@ -65,7 +65,7 @@ IMPORTANT! Only take info and tips from ${context}. Do not answer other question
   try {
     console.log('Sending request to Anthropic API')
     const anthropicResponse = await anthropic.messages.create({
-      model: 'claude-2.1',
+      model: 'claude-3-haiku-20240307',
       messages: [{ role: 'user', content: query }],
       system: systemContext,
       max_tokens: 200,
